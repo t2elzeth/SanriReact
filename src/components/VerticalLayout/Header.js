@@ -7,13 +7,8 @@ import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 import PropTypes from "prop-types";
 import {withTranslation} from "react-i18next";
 
-//i18n
-
-// Redux Store
-
 const Header = props => {
   const [search, setsearch] = useState(false);
-  // const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   function tToggle() {
     var body = document.body;
