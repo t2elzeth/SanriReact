@@ -1,16 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {store} from './store';
-import {Provider} from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import {BrowserRouter} from "react-router-dom";
+import "./i18n";
+import {Provider} from "react-redux";
 
-ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
+import store from "./store";
+
+const app = (
+    <Provider store={store}>
+      <BrowserRouter>
         <App/>
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
+      </BrowserRouter>
+    </Provider>
 );
 
+ReactDOM.render(app, document.getElementById("root"));
