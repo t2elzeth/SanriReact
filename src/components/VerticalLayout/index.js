@@ -1,52 +1,16 @@
 import PropTypes from "prop-types";
 import React, {useEffect} from "react";
 
-//constants
-import {
-  layoutWidthTypes,
-  topBarThemeTypes,
-  leftSidebarTypes,
-  leftSideBarThemeTypes,
-} from "../../constants/layout";
-
 import {withRouter} from "react-router-dom";
-import {
-  changeLayoutWidth,
-  changeSidebarTheme,
-  changeSidebarType,
-  changeTopbarTheme
-} from "../../store/actions";
 
-// Layout Related Components
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
-//redux
-import {useDispatch} from "react-redux";
-
 const Layout = props => {
-  const dispatch = useDispatch();
-
-  const leftSideBarType = leftSidebarTypes.DEFAULT;
   const isPreloader = false;
-  const layoutWidth = layoutWidthTypes.FLUID;
-  const topbarTheme = topBarThemeTypes.DARK;
-  const leftSideBarTheme = leftSideBarThemeTypes.DARK;
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  const toggleMenuCallback = () => {
-    if (leftSideBarType === "default") {
-      dispatch(changeSidebarType("condensed", isMobile));
-    } else if (leftSideBarType === "condensed") {
-      dispatch(changeSidebarType("default", isMobile));
-    }
-  };
-
-  /*
-  layout  settings
-  */
 
   useEffect(() => {
     if (isPreloader === true) {
@@ -67,30 +31,6 @@ const Layout = props => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (leftSideBarTheme) {
-      dispatch(changeSidebarTheme(leftSideBarTheme));
-    }
-  }, [leftSideBarTheme, dispatch]);
-
-  useEffect(() => {
-    if (layoutWidth) {
-      dispatch(changeLayoutWidth(layoutWidth));
-    }
-  }, [layoutWidth, dispatch]);
-
-  useEffect(() => {
-    if (leftSideBarType) {
-      dispatch(changeSidebarType(leftSideBarType));
-    }
-  }, [leftSideBarType, dispatch]);
-
-  useEffect(() => {
-    if (topbarTheme) {
-      dispatch(changeTopbarTheme(topbarTheme));
-    }
-  }, [topbarTheme, dispatch]);
-
   return (
       <React.Fragment>
         <div id="preloader">
@@ -107,10 +47,8 @@ const Layout = props => {
         </div>
 
         <div id="layout-wrapper">
-          <Header toggleMenuCallback={toggleMenuCallback}/>
+          <Header/>
           <Sidebar
-              theme={leftSideBarTheme}
-              type={leftSideBarType}
               isMobile={isMobile}
           />
           <div className="main-content">{props.children}</div>

@@ -1,17 +1,15 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import { connect } from "react-redux";
 import "react-drawer/lib/react-drawer.css";
 
 import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown";
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
+import PropTypes from "prop-types";
+import {withTranslation} from "react-i18next";
 
 //i18n
-import { withTranslation } from "react-i18next";
 
 // Redux Store
-import { changeSidebarType, showRightSidebarAction, toggleLeftmenu } from "../../store/actions";
 
 const Header = props => {
   const [search, setsearch] = useState(false);
@@ -119,27 +117,7 @@ const Header = props => {
 };
 
 Header.propTypes = {
-  changeSidebarType: PropTypes.func,
-  leftMenu: PropTypes.any,
-  leftSideBarType: PropTypes.any,
-  showRightSidebar: PropTypes.any,
-  showRightSidebarAction: PropTypes.func,
   t: PropTypes.any,
-  toggleLeftmenu: PropTypes.func
 };
 
-const mapStatetoProps = state => {
-  const {
-    layoutType,
-    showRightSidebar,
-    leftMenu,
-    leftSideBarType,
-  } = state.Layout;
-  return { layoutType, showRightSidebar, leftMenu, leftSideBarType };
-};
-
-export default connect(mapStatetoProps, {
-  showRightSidebarAction,
-  toggleLeftmenu,
-  changeSidebarType,
-})(withTranslation()(Header));
+export default withTranslation()(Header);
