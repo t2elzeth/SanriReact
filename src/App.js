@@ -6,8 +6,8 @@ import {authProtectedRoutes, publicRoutes} from "./routes";
 
 import Authmiddleware from "./routes/route";
 
-import VerticalLayout from "./components/VerticalLayout/";
-import NonAuthLayout from "./components/NonAuthLayout";
+import VerticalLayout from "@/components/VerticalLayout/";
+import NonAuthLayout from "@/components/NonAuthLayout";
 
 import "./assets/scss/theme.scss";
 
