@@ -39,7 +39,7 @@ const App = () => {
     changeBodyAttribute("data-sidebar", "dark");
     changeBodyAttribute("data-topbar", "dark");
     changeBodyAttribute("data-layout-size", "fluid");
-    changeBodyAttribute("data-layout-scrollable", false);
+    changeBodyAttribute("data-layout-scrollable", true);
     changeBodyAttribute("data-sidebar-size", "");
     manageBodyClass("sidebar-enable", "remove");
 

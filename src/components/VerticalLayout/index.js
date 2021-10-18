@@ -59,19 +59,8 @@ const Layout = props => {
 };
 
 Layout.propTypes = {
-  changeLayoutWidth: PropTypes.func,
-  changeSidebarTheme: PropTypes.func,
-  changeSidebarThemeImage: PropTypes.func,
-  changeSidebarType: PropTypes.func,
-  changeTopbarTheme: PropTypes.func,
   children: PropTypes.object,
-  isPreloader: PropTypes.any,
-  layoutWidth: PropTypes.any,
-  leftSideBarTheme: PropTypes.any,
-  leftSideBarType: PropTypes.any,
   location: PropTypes.object,
-  showRightSidebar: PropTypes.any,
-  topbarTheme: PropTypes.any,
 };
 
 export default withRouter(Layout);

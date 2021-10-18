@@ -16,7 +16,7 @@ const Header = props => {
       body.classList.toggle("sidebar-enable");
     } else {
       body.classList.toggle("vertical-collpsed");
-      body.classList.toggle("sidebar-enable");
+      // body.classList.toggle("sidebar-enable");
     }
   }
 
