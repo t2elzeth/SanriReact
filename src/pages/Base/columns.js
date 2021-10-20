@@ -10,6 +10,7 @@ const columns = [
         <p className="mb-0">
           {row.is_shipped && <i className="mdi mdi-anchor"/>}
           {row.is_sold && <i className="mdi mdi-minus-circle text-success" />}
+          {row.comment && <i className="mdi mdi-card-text-outline text-success" />}
         </p>
       );
     }
