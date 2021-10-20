@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import PropTypes from "prop-types";
 import { Button, Card, CardBody, Col, Container, Form, FormGroup, Row } from "reactstrap";
@@ -10,13 +10,32 @@ import paginationFactory, { PaginationListStandalone, PaginationProvider } from 
 import Breadcrumbs from "components/Common/Breadcrumb";
 import classNames from "classnames";
 import columns from "pages/Base/columns";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "@/store/orders";
 
 const Base = () => {
+  const dispatch = useDispatch();
+  const { orders } = useSelector(state => state.orders);
+
+  const [isFilteredOnlyShipped, setFilteredOnlyShipped] = useState(false);
+  const [filteredOrders, setFilteredOrders] = useState(orders);
   const [sizePerPage, setSizePerPage] = useState(10);
+
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, []);
+
+  useEffect(() => {
+    setFilteredOrders(orders);
+  }, [orders]);
+
+  useEffect(() => {
+    setFilteredOrders(isFilteredOnlyShipped ? orders.filter(order => order.is_shipped) : orders);
+  }, [isFilteredOnlyShipped]);
 
   const pageOptions = {
     sizePerPage,
-    totalSize: 0, // replace later with size(orders),
+    totalSize: orders.length,
     custom: true
   };
 
@@ -24,10 +43,9 @@ const Base = () => {
     const [expand, setExpand] = useState(true);
 
     function toggleColumns() {
-      onColumnToggle("price");
-      onColumnToggle("recycle");
+      onColumnToggle("price10");
       onColumnToggle("auctionFees");
-      onColumnToggle("transport");
+      onColumnToggle("recycle");
       setExpand(!expand);
     }
 
@@ -62,7 +80,7 @@ const Base = () => {
           <title>Base</title>
         </MetaTags>
         <Container fluid>
-          <Breadcrumbs title="Ecommerce" breadcrumbItem="Customers" />
+          <Breadcrumbs title="Base" breadcrumbItem="Orders" />
           <Row>
             <Col xs="12">
               <Card>
@@ -73,7 +91,7 @@ const Base = () => {
                     {({ paginationProps, paginationTableProps }) => (
                       <ToolkitProvider
                         keyField="id"
-                        data={[]}
+                        data={filteredOrders}
                         columns={columns}
                         bootstrap4
                         search
@@ -99,9 +117,21 @@ const Base = () => {
                                     type="button"
                                     color="success"
                                     className="btn-rounded  mb-2 me-2"
+                                    onClick={() => setFilteredOnlyShipped(!isFilteredOnlyShipped)}
                                   >
-                                    <i className="mdi mdi-plus me-1" />
-                                    New customer
+                                    {
+                                      isFilteredOnlyShipped
+                                        ?
+                                        <>
+                                          <i className="mdi mdi-anchor me-1" />
+                                          <i className="mdi mdi-magnify-close me-1" />
+                                        </>
+                                        :
+                                        <>
+                                          <i className="mdi mdi-anchor me-1" />
+                                          <i className="mdi mdi-magnify me-1" />
+                                        </>
+                                    }
                                   </Button>
                                 </div>
                               </Col>
@@ -112,7 +142,7 @@ const Base = () => {
                                   <BootstrapTable
                                     bordered={false}
                                     striped={false}
-                                    classes={"table align-middle table-nowrap"}
+                                    classes={"table align-middle table-nowrap text-center"}
                                     {...toolkitProps.baseProps}
                                     {...paginationTableProps}
                                   />
