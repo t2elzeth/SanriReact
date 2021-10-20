@@ -22,7 +22,7 @@ function Dashboard() {
       <React.Fragment>
         <div className="page-content">
           <MetaTags>
-            <title>Dashboard | Skote - React Admin & Dashboard Template</title>
+            <title>Dashboard</title>
           </MetaTags>
           <Container fluid>
             <h4>Dashboard</h4>
